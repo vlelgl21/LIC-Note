@@ -1,0 +1,36 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Force HTTPS (required for Service Worker, Geolocation, and SpeechRecognition)
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Do not rewrite existing files, directories, or bundled assets
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Never rewrite missing static files in /assets or PWA files to index.html
+  RewriteRule ^(assets/|sw\.js$|manifest\.json$|icon\.svg$|pwa-.*\.png$|apple-touch-icon\.png$) - [L,R=404]
+
+  # Route all client-side SPA paths back to index.html
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType application/javascript .js .mjs
+  AddType text/css .css
+  AddType application/manifest+json .webmanifest .json
+  AddType image/svg+xml .svg
+  AddType image/png .png
+</IfModule>
+
+# Prevent stale caching of Service Worker, Manifest, and HTML entry point
+<FilesMatch "^(index\.html|sw\.js|manifest\.json)$">
+  <IfModule mod_headers.c>
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+  </IfModule>
+</FilesMatch>

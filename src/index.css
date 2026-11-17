@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --lic-blue: #00529B;
+    --lic-blue-dark: #003B73;
+    --lic-gold: #FDB913;
+    --lic-gold-text: #713F12;
+  }
+
+  html {
+    font-family: "Plus Jakarta Sans", "Noto Sans Bengali", system-ui, -apple-system, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .font-mono-tabular {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom high-contrast range slider for conversion probability */
+input[type="range"].lic-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  border-radius: 9999px;
+  outline: none;
+}
+
+input[type="range"].lic-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: #00529B;
+  border: 3px solid #FDB913;
+  box-shadow: 0 2px 6px rgba(0, 59, 115, 0.3);
+  cursor: pointer;
+}
+
+input[type="range"].lic-slider::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: #00529B;
+  border: 3px solid #FDB913;
+  box-shadow: 0 2px 6px rgba(0, 59, 115, 0.3);
+  cursor: pointer;
+}
+
+/* Subtle scrollbar hiding for horizontal tab strip */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
